@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Song, FilterOptions } from '@/types';
@@ -32,9 +31,10 @@ const MusicLibrary: React.FC = () => {
           song.artist.toLowerCase().includes(searchLower) ||
           song.album.toLowerCase().includes(searchLower);
         
-        const matchesArtist = !filters.artist || song.artist === filters.artist;
-        const matchesAlbum = !filters.album || song.album === filters.album;
-        const matchesGenre = !filters.genre || song.genre === filters.genre;
+        // Updated filter logic to handle "all" values
+        const matchesArtist = !filters.artist || filters.artist === 'all' || song.artist === filters.artist;
+        const matchesAlbum = !filters.album || filters.album === 'all' || song.album === filters.album;
+        const matchesGenre = !filters.genre || filters.genre === 'all' || song.genre === filters.genre;
         
         return matchesSearch && matchesArtist && matchesAlbum && matchesGenre;
       })
